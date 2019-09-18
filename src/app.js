@@ -1,9 +1,8 @@
 const express = require('express');
+const artistController = require('../src/controllers/artists');
 
 const app = express();
-
-app.get('*', (req, res) => {
-  res.status(200).json({ message: 'Hello World!' });
-});
+app.use(express.json());
+app.post('/artists', artistController.create);
 
 module.exports = app;
