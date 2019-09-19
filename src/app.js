@@ -5,5 +5,6 @@ const app = express();
 app.use(express.json());
 app.post('/artists', artistController.create);
 app.get('/artists', artistController.list);
+app.get('/artists/:id', artistController.searchById);
 
 module.exports = app;
