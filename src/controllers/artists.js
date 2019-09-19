@@ -18,12 +18,34 @@ exports.list = (req, res) => {
 };
 
 exports.searchById = (req, res) => {
-  const id = req.params.id;
-  Artist.findById(id, (err, artist) => {
+  Artist.findById(req.params.id, (err, artist) => {
     if (!artist) {
       res.status(404).json({ error: 'The artist could not be found.' });
     } else {
       res.status(200).json(artist);
+    }
+  });
+};
+
+exports.update = (req, res) => {
+  Artist.findById(req.params.id, (err, artist) => {
+    if (!artist) {
+      res.status(404).json({ error: 'The artist could not be found.' });
+    } else {
+      artist.set(req.body);
+      artist.save().then(() => {
+        res.status(200).json(artist);
+      });
+    }
+  });
+};
+
+exports.delete = (req, res) => {
+  Artist.findOneAndDelete({ _id: req.params.id }, (err, artist) => {
+    if (!artist) {
+      res.status(404).json({ error: 'The artist could not be found.' });
+    } else {
+      res.status(204).json(artist);
     }
   });
 };
