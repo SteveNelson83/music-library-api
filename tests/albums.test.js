@@ -109,6 +109,20 @@ describe('/albums', () => {
             });
           });
       });
+      it('deletes album record by id', (done) => {
+        const album = albums[0];
+        chai.request(server)
+          .delete(`/artists/${artist._id}/albums/${album._id}`)
+          .end((err, res) => {
+            expect(err).to.equal(null);
+            expect(res.status).to.equal(204);
+            Album.findById(album._id, (error, updatedAlbum) => {
+              expect(error).to.equal(null);
+              expect(updatedAlbum).to.equal(null);
+              done();
+            });
+          });
+      });
     });
   });
 });

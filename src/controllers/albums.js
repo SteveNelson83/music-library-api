@@ -33,3 +33,13 @@ exports.update = (req, res) => {
     }
   });
 };
+
+exports.delete = (req, res) => {
+  Album.findOneAndDelete({ _id: req.params.id }, (err, album) => {
+    if (!album) {
+      res.status(404).json({ error: 'The album could not be found.' });
+    } else {
+      res.status(204).json(album);
+    }
+  });
+};
